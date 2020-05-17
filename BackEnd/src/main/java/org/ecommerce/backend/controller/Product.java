@@ -1,15 +1,13 @@
 package org.ecommerce.backend.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@Controller
+@RestController
 public class Product {
+
     @RequestMapping("/")
-    public String home() {
-        return "Hello word";
+    public String index() {
+        return "Greetings from Spring Boot!";
     }
 }
