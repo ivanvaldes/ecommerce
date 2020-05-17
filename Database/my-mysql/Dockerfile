@@ -12,3 +12,5 @@ COPY ./sql-scripts/ /docker-entrypoint-initdb.d/
 #Run commands
 RUN apt-get update && apt-get install -y \
 vim
+RUN   echo "bind-address    = 0.0.0.0" >> /etc/mysql/my.cnf
+RUN   echo "default_authentication_plugin=mysql_native_password" >> /etc/mysql/my.cnf
