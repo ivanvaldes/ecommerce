@@ -1,4 +1,9 @@
 package org.ecommerce.backend.service;
 
-public class UserService {
+import org.ecommerce.backend.model.User;
+
+import java.util.List;
+
+public interface UserService {
+    List<User> findAll();
 }
