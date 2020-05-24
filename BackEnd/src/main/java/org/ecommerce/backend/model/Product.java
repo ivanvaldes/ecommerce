@@ -18,15 +18,15 @@ public class Product {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "PRODUCT_CATEGORY",
-            joinColumns = @JoinColumn(name = "PRODUCT_CODE"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORY_CODE")
-    )
-    private List<Category> categories = new ArrayList<>();
+    //@ManyToMany(cascade = {
+    //        CascadeType.PERSIST,
+    //        CascadeType.MERGE
+    //})
+    //@JoinTable(name = "PRODUCT_CATEGORY",
+    //        joinColumns = @JoinColumn(name = "PRODUCT_CODE"),
+    //        inverseJoinColumns = @JoinColumn(name = "CATEGORY_CODE")
+    //)
+    //private List<Category> categories = new ArrayList<>();
 
     @Lob
     @Column(name = "IMAGE")
@@ -35,11 +35,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(int code, String name, String description, List<Category> categories, byte[] image) {
+    public Product(int code, String name, String description, byte[] image) {
         this.code = code;
         this.name = name;
         this.description = description;
-        this.categories = categories;
+        //this.categories = categories;
         this.image = image;
     }
 
@@ -65,14 +65,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 
     public byte[] getImage() {
