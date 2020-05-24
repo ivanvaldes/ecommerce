@@ -1,28 +1,46 @@
 package org.ecommerce.backend.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODE")
     private int code;
+
     @Column(name = "NAME")
     private String name;
+
     @Column(name = "DESCRIPTION")
     private String description;
 
-    private int category_code;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "PRODUCT_CATEGORY",
+            joinColumns = @JoinColumn(name = "PRODUCT_CODE"),
+            inverseJoinColumns = @JoinColumn(name = "CATEGORY_CODE")
+    )
+    private List<Category> categories = new ArrayList<>();
 
-    public Product(int code, String username, String name, String description, int category_code) {
+    @Lob
+    @Column(name = "IMAGE")
+    private byte[] image;
+
+    public Product() {
+    }
+
+    public Product(int code, String name, String description, List<Category> categories, byte[] image) {
         this.code = code;
-        this.username = username;
         this.name = name;
         this.description = description;
-        this.category_code = category_code;
+        this.categories = categories;
+        this.image = image;
     }
 
     public int getCode() {
@@ -31,14 +49,6 @@ public class Product {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getName() {
@@ -57,11 +67,19 @@ public class Product {
         this.description = description;
     }
 
-    public int getCategory_code() {
-        return category_code;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory_code(int category_code) {
-        this.category_code = category_code;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
