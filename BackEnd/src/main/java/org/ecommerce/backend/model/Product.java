@@ -1,10 +1,20 @@
 package org.ecommerce.backend.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CODE")
     private int code;
-    private String username;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "DESCRIPTION")
     private String description;
+
     private int category_code;
 
     public Product(int code, String username, String name, String description, int category_code) {
