@@ -7,17 +7,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ProductServiceImp implements ProductService{
     @Autowired
     private ProductDao productDao;
 
+    @Override
+    public List<Product> findAll() {
+        return productDao.findAll();
+    }
 
     @Override
-    public void save(Product product, MultipartFile file) {
+    public void save(String name, String description, MultipartFile image) {
         try {
-            product.setImage(file.getBytes());
+            Product product = new Product();
+            product.setName(name);
+            product.setDescription(description);
+            product.setImage(image.getBytes());
             productDao.save(product);
         } catch (IOException e) {
             System.err.println("Unable to get byte array from uploaded file.");

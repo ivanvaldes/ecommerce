@@ -3,6 +3,9 @@ package org.ecommerce.backend.service;
 import org.ecommerce.backend.model.Product;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ProductService {
-    void save(Product product, MultipartFile file);
+    List<Product> findAll();
+    void save(String name, String description, MultipartFile image);
 }

@@ -1,9 +1,11 @@
 package org.ecommerce.backend.dao;
 
 import org.ecommerce.backend.model.Product;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 public interface ProductDao {
     void save(Product product);
+    List<Product> findAll();
 }
