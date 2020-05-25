@@ -1,14 +1,29 @@
 package org.ecommerce.backend.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "CATEGORY")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CODE")
     private int code;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "TYPE")
     private String type;
 
     public Category(int code, String name, String type) {
         this.code = code;
         this.name = name;
         this.type = type;
+    }
+
+    public Category() {
+
     }
 
     public int getCode() {
