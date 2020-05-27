@@ -31,4 +31,26 @@ public class ProductServiceImp implements ProductService{
             System.err.println("Unable to get byte array from uploaded file.");
         }
     }
+
+    @Override
+    public Product findById(int productId) {
+        return productDao.findById(productId);
+    }
+
+    @Override
+    public void delete(Product product) {
+        productDao.delete(product);
+    }
+
+    @Override
+    public void updateProduct(Product product, String name, String description, MultipartFile image) {
+        try {
+            product.setName(name);
+            product.setDescription(description);
+            product.setImage(image.getBytes());
+            productDao.update(product);
+        } catch (IOException e) {
+            System.err.println("Unable to get byte array from uploaded file.");
+        }
+    }
 }
