@@ -1,6 +1,7 @@
 package org.ecommerce.backend.dao;
 
 import org.ecommerce.backend.model.Category;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,32 @@ public class CategotyDaoImpl implements CategoryDao {
         // Close the session
         session.close();
     }
+
+    @Override
+    public Category findById(int categoryId) {
+        Session session = sessionFactory.openSession();
+        Category category = session.get(Category.class,categoryId);
+        session.close();
+        return category;
+    }
+
+    @Override
+    public void delete(Category category) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(category);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void update(Category category) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(category);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
 }

@@ -7,13 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CategoryController {
@@ -22,11 +18,38 @@ public class CategoryController {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @RequestMapping(value = "/uploadCategory", method = RequestMethod.POST)
+    // Add a category
+    @RequestMapping(value = "category/upload", method = RequestMethod.POST)
     public ResponseEntity<String> addCategory(@RequestParam("name") String name, @RequestParam("type") String type) {
         categoryService.save(name, type);
         // TODO: Redirect browser to /categories
         ResponseEntity<String> responseEntity= new ResponseEntity<>("Insert Success", HttpStatus.OK);
+        return responseEntity;
+    }
+
+    // List all products
+    @RequestMapping("/categories")
+    public @ResponseBody
+    List<Category> listProducts() {
+        List<Category> products = categoryService.findAll();
+        return products;
+    }
+
+    // Delete an existing category
+    @RequestMapping(value = "/categories/{categoryId}/delete", method = RequestMethod.POST)
+    public ResponseEntity<String> deleteCategory(@PathVariable int categoryId) {
+        Category cat = categoryService.findById(categoryId);
+        categoryService.delete(cat);
+        ResponseEntity<String> responseEntity= new ResponseEntity<>("Delete Success", HttpStatus.OK);
+        return responseEntity;
+    }
+
+    // Update an existing Product
+    @RequestMapping(value = "/category/{categoryId}/update", method = RequestMethod.POST)
+    public ResponseEntity<String> updateProduct(@PathVariable int categoryId, @RequestParam("name") String name, @RequestParam("type") String type) {
+        Category product = categoryService.findById(categoryId);
+        categoryService.updateProduct(product,name,type);
+        ResponseEntity<String> responseEntity = new ResponseEntity<>("Category updated sucessfully",HttpStatus.OK);
         return responseEntity;
     }
 
