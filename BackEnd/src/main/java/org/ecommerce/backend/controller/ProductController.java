@@ -42,8 +42,7 @@ public class ProductController {
     }
 
     // Delete an existing product
-    @RequestMapping(value = "/products/{productId}/delete",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "/products/{productId}/delete", method = RequestMethod.POST)
     public ResponseEntity<String> deleteProduct(@PathVariable int productId) {
         Product product = productService.findById(productId);
         productService.delete(product);
@@ -53,8 +52,8 @@ public class ProductController {
 
     // Update an existing Product
     @RequestMapping(value = "/products/{productId}/update", method = RequestMethod.POST)
-    public ResponseEntity<String> updateProduct(@RequestParam("code") int code, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("image") MultipartFile image) {
-        Product product = productService.findById(code);
+    public ResponseEntity<String> updateProduct(@PathVariable int productId, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("image") MultipartFile image) {
+        Product product = productService.findById(productId);
         productService.updateProduct(product,name,description,image);
         ResponseEntity<String> responseEntity = new ResponseEntity<>("Product updated sucessfully",HttpStatus.OK);
         return responseEntity;
