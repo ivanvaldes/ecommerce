@@ -14,6 +14,11 @@
 
 
 /*////////////////////////////////[ NAV ]///////////////////////*/
+.logo{
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 2%;
+}
 
 .navbar {
   font-weight: 300;
@@ -128,7 +133,8 @@ p {
 }
 
 ul, li {
-	margin: 0px;
+  margin: 0px;
+  margin-left: 15px;
 	list-style-type: none;
 }
 
